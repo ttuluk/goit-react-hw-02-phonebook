@@ -2,10 +2,15 @@ import React from "react";
 import shortid from "shortid";
 import Contacts from "../Contacts/Contacts";
 import Filter from "../Filter/Filter";
-
+import styles from "./Form.module.css";
 class Form extends React.Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+    ],
     name: "",
     phoneNumber: "",
     filter: "",
@@ -78,11 +83,12 @@ class Form extends React.Component {
 
     return (
       <>
-        <form onSubmit={this.handleSubmite}>
-          <label htmlFor={this.nameInputId}>
+        <form onSubmit={this.handleSubmite} className={styles.form}>
+          <label htmlFor={this.nameInputId} className={styles.label}>
             Name
             <input
               id={this.nameInputId}
+              className={styles.input}
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -92,9 +98,11 @@ class Form extends React.Component {
               required
             />
           </label>
-          <label htmlFor={this.phoneInputId}>
+          <label htmlFor={this.phoneInputId} className={styles.label}>
+            Number
             <input
               id={this.phoneInputId}
+              className={styles.input}
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -104,12 +112,14 @@ class Form extends React.Component {
               required
             />
           </label>
-          <button type="submit">Add contact</button>
-          <Filter
-            nameFilter={this.state.filter}
-            onChangeFilter={this.changeFilter}
-          />
+          <button className={styles.btn} type="submit">
+            Add contact
+          </button>
         </form>
+        <Filter
+          nameFilter={this.state.filter}
+          onChangeFilter={this.changeFilter}
+        />
         {this.state.filter === "" ? (
           <Contacts
             contactNames={this.state.contacts}

@@ -1,15 +1,20 @@
 import React from "react";
+import styles from "./Contacts.module.css";
 
 const Contacts = ({ contactNames, onDeleteContact }) => {
   return (
-    <section className="contacts">
-      <h2>Contacts</h2>
-      <ul className="contacts_list">
+    <section className={styles.contacts}>
+      <h2 className={styles.title}>Contacts</h2>
+      <ul className={styles.contacts_list}>
         {contactNames.map((elem) => {
           return (
-            <li key={elem.id} className="contacts_item">
+            <li key={elem.id} className={styles.contacts_item}>
               {elem.name}: {elem.phoneNumber}
-              <button type="button" onClick={onDeleteContact}>
+              <button
+                className={styles.btn_delete}
+                type="button"
+                onClick={onDeleteContact}
+              >
                 Delete
               </button>
             </li>
