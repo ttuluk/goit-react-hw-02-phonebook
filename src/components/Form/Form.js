@@ -1,12 +1,14 @@
 import React from "react";
 import shortid from "shortid";
 import Contacts from "../Contacts/Contacts";
+import Filter from "../Filter/Filter";
 
 class Form extends React.Component {
   state = {
     contacts: [],
     name: "",
     phoneNumber: "",
+    filter: "",
   };
   nameInputId = shortid.generate();
   phoneInputId = shortid.generate();
@@ -27,23 +29,53 @@ class Form extends React.Component {
     });
   };
 
+  changeFilter = (event) => {
+    const { value } = event.currentTarget;
+    this.setState(() => {
+      return { filter: value };
+    });
+  };
+
   handleSubmite = (e) => {
     e.preventDefault();
     const idContact = shortid.generate();
+    const { name, phoneNumber } = this.state;
+    if (this.state.contacts.some((nameEl) => nameEl.name === name)) {
+      this.reset();
+      return alert("Name is already in contacts");
+    }
+
     this.state.contacts.push({
-      name: this.state.name,
-      phoneNumber: this.state.phoneNumber,
+      name: name,
+      phoneNumber: phoneNumber,
       id: idContact,
     });
+
     this.props.onSubmit({ ...this.state });
     this.reset();
   };
 
+  getFilterContact = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter((contact) => {
+      return contact.name.includes(normalizedFilter);
+    });
+  };
+
+  deleteContact = (e) => {
+    console.dir(e.target.parentElement);
+    e.target.parentElement.remove();
+  };
+
   reset = () => {
-    this.setState({ name: "", phoneNumber: "" });
+    this.setState({ name: "", phoneNumber: "", filter: "" });
   };
 
   render() {
+    const visibleContacts = this.getFilterContact();
+
     return (
       <>
         <form onSubmit={this.handleSubmite}>
@@ -72,10 +104,23 @@ class Form extends React.Component {
               required
             />
           </label>
-
           <button type="submit">Add contact</button>
+          <Filter
+            nameFilter={this.state.filter}
+            onChangeFilter={this.changeFilter}
+          />
         </form>
-        <Contacts contactNames={this.state.contacts} />
+        {this.state.filter === "" ? (
+          <Contacts
+            contactNames={this.state.contacts}
+            onDeleteContact={this.deleteContact}
+          />
+        ) : (
+          <Contacts
+            contactNames={visibleContacts}
+            onDeleteContact={this.deleteContact}
+          />
+        )}
       </>
     );
   }
