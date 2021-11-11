@@ -13,6 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <h1>Phonebook</h1>
         <Form onSubmit={this.formHandleSumit} />
       </div>
     );
