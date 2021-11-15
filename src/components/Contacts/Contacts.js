@@ -9,7 +9,7 @@ const Contacts = ({ contactNames, onDeleteContact }) => {
         {contactNames.map((elem) => {
           return (
             <li key={elem.id} className={styles.contacts_item}>
-              {elem.name}: {elem.phoneNumber}
+              {elem.name}: {elem.number}
               <button
                 className={styles.btn_delete}
                 type="button"

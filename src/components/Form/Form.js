@@ -52,7 +52,7 @@ class Form extends Component {
     }
     const contact = {
       name: name,
-      phoneNumber: phoneNumber,
+      number: phoneNumber,
       id: idContact,
     };
 

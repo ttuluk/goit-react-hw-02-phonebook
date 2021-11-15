@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import { Form } from "./components/Form/Form";
 
 class App extends Component {
-  formHandleSumit = (data) => {
-    console.log(data);
-  };
-
   render() {
     return (
       <div className="App">
