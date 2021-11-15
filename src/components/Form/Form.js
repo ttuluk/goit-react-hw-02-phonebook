@@ -60,13 +60,6 @@ class Form extends Component {
       contacts: [contact, ...contacts],
     }));
 
-    // this.state.contacts.push({
-    //   name: name,
-    //   phoneNumber: phoneNumber,
-    //   id: idContact,
-    // });
-
-    // this.props.onSubmit({ ...this.state });
     this.reset();
   };
 
@@ -79,9 +72,12 @@ class Form extends Component {
     });
   };
 
-  deleteContact = (e) => {
-    console.dir(e.target.parentElement);
-    e.target.parentElement.remove();
+  deleteContact = (contactId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter(
+        (contact) => contact.id !== contactId
+      ),
+    }));
   };
 
   reset = () => {

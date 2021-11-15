@@ -13,7 +13,7 @@ const Contacts = ({ contactNames, onDeleteContact }) => {
               <button
                 className={styles.btn_delete}
                 type="button"
-                onClick={onDeleteContact}
+                onClick={() => onDeleteContact(elem.id)}
               >
                 Delete
               </button>
