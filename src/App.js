@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import { Form } from "./components/Form/Form";
 
-class App extends React.Component {
+class App extends Component {
   formHandleSumit = (data) => {
     console.log(data);
   };
@@ -10,7 +10,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Phonebook</h1>
-        <Form onSubmit={this.formHandleSumit} />
+        <Form />
       </div>
     );
   }

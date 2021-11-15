@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import shortid from "shortid";
 import Contacts from "../Contacts/Contacts";
 import Filter from "../Filter/Filter";
 import styles from "./Form.module.css";
-class Form extends React.Component {
+
+class Form extends Component {
   state = {
     contacts: [
       { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
@@ -49,14 +50,23 @@ class Form extends React.Component {
       this.reset();
       return alert("Name is already in contacts");
     }
-
-    this.state.contacts.push({
+    const contact = {
       name: name,
-      phoneNumber: phoneNumber,
+      number: phoneNumber,
       id: idContact,
-    });
+    };
 
-    this.props.onSubmit({ ...this.state });
+    this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+    }));
+
+    // this.state.contacts.push({
+    //   name: name,
+    //   phoneNumber: phoneNumber,
+    //   id: idContact,
+    // });
+
+    // this.props.onSubmit({ ...this.state });
     this.reset();
   };
 
