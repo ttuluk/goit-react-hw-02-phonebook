@@ -19,26 +19,6 @@ class Form extends Component {
   nameInputId = shortid.generate();
   phoneInputId = shortid.generate();
 
-  componentDidMount() {
-    // console.log('App componentDidMount');
-
-    const contacts = localStorage.getItem("contacts");
-    const parsedContacts = JSON.parse(contacts);
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const nextContacts = this.state.contacts;
-    const prevContacts = prevState.contacts;
-
-    if (nextContacts !== prevContacts) {
-      localStorage.setItem("contacts", JSON.stringify(nextContacts));
-    }
-  }
-
   handleInputContactChange = (event) => {
     const { name, value } = event.currentTarget;
 
